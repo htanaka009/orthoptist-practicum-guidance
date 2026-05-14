@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>視能訓練士実習｜帰宅前整理・レポート添削ナビ</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #fffdf8;
+      --ink: #24313a;
+      --muted: #68757d;
+      --line: #d9d2c4;
+      --soft: #ece7dc;
+      --accent: #5f7f86;
+      --accent-dark: #385260;
+      --warn: #a75e31;
+      --good: #477460;
+      --shadow: 0 10px 28px rgba(35, 41, 45, .08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    header {
+      background: linear-gradient(135deg, #fffdf8 0%, #edf1ee 100%);
+      border-bottom: 1px solid var(--line);
+      padding: 28px 20px 22px;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    h1, h2, h3, h4 { line-height: 1.35; margin: 0 0 .65rem; color: var(--accent-dark); }
+    h1 { font-size: clamp(1.55rem, 2.8vw, 2.4rem); letter-spacing: .02em; }
+    h2 { font-size: 1.55rem; margin-top: .2rem; }
+    h3 { font-size: 1.18rem; margin-top: 1rem; }
+    h4 { font-size: 1rem; margin-top: .75rem; }
+    p { margin: .4rem 0 .8rem; }
+    .lead { color: #41505a; max-width: 850px; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .badge {
+      display:inline-flex; align-items:center; gap:6px;
+      border:1px solid var(--line); background: rgba(255,255,255,.72);
+      border-radius:999px; padding:6px 12px; font-size:.88rem; color:#3d4c55;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(246, 244, 239, .94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { max-width:1180px; margin:0 auto; display:flex; gap:8px; overflow-x:auto; padding:10px 12px; }
+    button, .button {
+      appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+      border-radius: 999px; padding: 9px 14px; cursor: pointer; font-size: .95rem; white-space: nowrap;
+      transition: .15s ease; text-decoration: none; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    }
+    button:hover, .button:hover { border-color: var(--accent); box-shadow: 0 3px 10px rgba(56,82,96,.12); transform: translateY(-1px); }
+    button.primary { background: var(--accent-dark); color: white; border-color: var(--accent-dark); }
+    button.ghost { background: transparent; }
+    main { padding: 22px 16px 60px; }
+    section {
+      max-width: 1180px; margin: 0 auto 24px; background: var(--paper); border:1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px;
+    }
+    section.hidden { display:none; }
+    .grid { display:grid; gap:14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .card {
+      background: #fffaf0; border: 1px solid var(--line); border-radius: 16px; padding: 16px;
+    }
+    .card.white { background: #fff; }
+    .card.green { background:#f0f7f3; border-color:#c8dbd0; }
+    .card.warn { background:#fff4ea; border-color:#e1c2a8; }
+    .card.blue { background:#eff5f7; border-color:#c9d9dd; }
+    .small { font-size: .92rem; color: var(--muted); }
+    .strong { font-weight: 700; color: var(--accent-dark); }
+    .notice {
+      border-left: 5px solid var(--accent); background:#f2f6f4; padding: 12px 14px; border-radius: 12px; margin: 12px 0;
+    }
+    .warning {
+      border-left: 5px solid var(--warn); background:#fff5eb; padding: 12px 14px; border-radius: 12px; margin: 12px 0;
+    }
+    ul, ol { padding-left: 1.3rem; margin: .35rem 0 .8rem; }
+    li { margin: .18rem 0; }
+    table { width:100%; border-collapse: collapse; margin: 12px 0 18px; font-size:.94rem; }
+    th, td { border:1px solid var(--line); padding:10px; vertical-align: top; }
+    th { background:#ede7dc; color: var(--accent-dark); text-align:left; }
+    tbody tr:nth-child(even) td { background:#fffaf1; }
+    details { border:1px solid var(--line); border-radius:14px; padding: 10px 12px; background:#fff; margin: 10px 0; }
+    summary { cursor:pointer; font-weight:700; color: var(--accent-dark); }
+    textarea, input[type="text"] {
+      width:100%; border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:#fff; color:var(--ink);
+      min-height: 42px; font: inherit;
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    .field { margin: 10px 0; }
+    .field label { display:block; font-weight:700; margin-bottom:4px; color:#3c4f58; }
+    .checklist { display:grid; gap:8px; }
+    .check { display:flex; gap:9px; align-items:flex-start; background:#fff; border:1px solid var(--line); border-radius:12px; padding:9px 10px; }
+    .check input { margin-top:.35rem; }
+    .flow-arrow { text-align:center; color: var(--muted); font-weight:700; padding: 2px; }
+    .tabs { display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0; }
+    .subsection { margin-top: 18px; padding-top: 16px; border-top:1px dashed var(--line); }
+    .print-actions { display:flex; flex-wrap:wrap; gap:8px; margin: 14px 0 0; }
+    .quote { background:#f8f8f6; border-left: 4px solid var(--line); padding:10px 12px; border-radius:10px; }
+    .matrix-note { font-size:.88rem; color:var(--muted); }
+    .tag { display:inline-block; padding:2px 8px; border-radius:999px; background:#ece7dc; margin:2px 4px 2px 0; font-size:.84rem; }
+    footer { max-width:1180px; margin: 20px auto 50px; color: var(--muted); font-size:.9rem; padding: 0 16px; }
+
+    @media (max-width: 860px) {
+      .grid.two, .grid.three { grid-template-columns: 1fr; }
+      section { padding: 16px; }
+      table { font-size:.88rem; }
+      th, td { padding:8px; }
+    }
+
+    @media print {
+      body { background:white; color:#111; }
+      header, nav, footer, .no-print, .print-actions { display:none !important; }
+      main { padding:0; }
+      section { display:block !important; box-shadow:none; border:0; border-radius:0; max-width:none; padding:0; margin:0 0 14px; page-break-inside:auto; }
+      body[data-print-section] section { display:none !important; }
+      body[data-print-section="home"] #home,
+      body[data-print-section="privacy"] #privacy,
+      body[data-print-section="endday"] #endday,
+      body[data-print-section="correction"] #correction,
+      body[data-print-section="matrix"] #matrix,
+      body[data-print-section="comments"] #comments,
+      body[data-print-section="prints"] #prints { display:block !important; }
+      .card, details { page-break-inside: avoid; background:white !important; }
+      textarea, input[type="text"] { border:1px solid #999; min-height:70px; }
+      button { display:none !important; }
+      a { color:#000; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>視能訓練士実習｜帰宅前整理・レポート添削ナビ</h1>
+      <p class="lead">AIなし・アプリなしで運用できる、指導者用の簡易HTMLナビです。帰宅前整理と提出レポート添削で、学生の状態に応じた問いかけ・コメント・到達目標を確認できます。</p>
+      <div class="badge-row">
+        <span class="badge">指導者用</span>
+        <span class="badge">ローカルHTML</span>
+        <span class="badge">帰宅前整理</span>
+        <span class="badge">提出レポート添削</span>
+        <span class="badge">やさしいが的確なコメント</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="no-print">
+    <div class="nav-inner">
+      <button onclick="showSection('home')">ホーム</button>
+      <button onclick="showSection('privacy')">まず個人情報チェック</button>
+      <button onclick="showSection('endday')" class="primary">帰宅前整理</button>
+      <button onclick="showSection('correction')">提出レポート添削</button>
+      <button onclick="showSection('matrix')">支援マトリクス</button>
+      <button onclick="showSection('comments')">コメント例</button>
+      <button onclick="showSection('prints')">印刷用シート</button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="home">
+      <h2>使い方</h2>
+      <div class="grid two">
+        <div class="card green">
+          <h3>帰宅前整理で使う</h3>
+          <p>帰宅前に、学生と一緒に次の3つを決めます。</p>
+          <ol>
+            <li>今日のテーマ</li>
+            <li>今日調べること</li>
+            <li>明日見ること</li>
+          </ol>
+          <button class="primary" onclick="showSection('endday')">帰宅前整理を開く</button>
+        </div>
+        <div class="card blue">
+          <h3>提出レポート添削で使う</h3>
+          <p>提出されたレポートを、個人情報・具体性・知識とのつながり・実技とのつながり・次回課題の順に確認します。</p>
+          <button onclick="showSection('correction')">添削フローを開く</button>
+        </div>
+      </div>
+
+      <div class="notice">
+        <strong>基本原則：</strong>学生の「能力」を判定するのではなく、今日の記録を次の行動につなげるために使います。コメントは、できている点を認めたうえで、次に足す行動を具体的に伝えます。
+      </div>
+
+      <h3>最初に必ず確認すること</h3>
+      <div class="grid three">
+        <div class="card">
+          <h4>1. 個人情報</h4>
+          <p>氏名・ID・具体日付などが含まれる場合は、内容の深掘りより先に一般化します。</p>
+        </div>
+        <div class="card">
+          <h4>2. 到達目標</h4>
+          <p>帰宅前は「テーマ・調べること・明日見ること」の3点が決まれば終了して構いません。</p>
+        </div>
+        <div class="card">
+          <h4>3. 学生への伝え方</h4>
+          <p>「考察が浅い」ではなく、「場面を一つ足すと伝わりやすい」と伝えます。</p>
+        </div>
+      </div>
+      <div class="print-actions">
+        <button onclick="window.print()">全体を印刷</button>
+      </div>
+    </section>
+
+    <section id="privacy" class="hidden">
+      <h2>まず個人情報チェック</h2>
+      <p>帰宅前整理・提出レポート添削のどちらでも、最初に確認します。個人情報が含まれる場合は、内容の添削より先に一般化します。</p>
+      <div class="warning">
+        <strong>判断：</strong>患者さん・学校・学生・スタッフが特定される可能性がある表現は、一般化してから次のフローに進みます。
+      </div>
+      <div class="grid two">
+        <div class="card warn">
+          <h3>見直す表現</h3>
+          <ul>
+            <li>患者名、イニシャル、患者ID</li>
+            <li>具体的な来院日、生年月日、電話番号、住所</li>
+            <li>「80歳の〇〇さん」など特定につながる年齢＋特徴</li>
+            <li>珍しい経過、希少疾患、地域や職業などの組み合わせ</li>
+            <li>不要なスタッフ名・学校名・学生名</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>置き換え例</h3>
+          <table>
+            <thead><tr><th>避けたい表現</th><th>置き換え例</th></tr></thead>
+            <tbody>
+              <tr><td>5月10日に来院した80歳の〇〇さん</td><td>高齢の患者さん</td></tr>
+              <tr><td>患者ID 123456の患者さん</td><td>ある患者さん</td></tr>
+              <tr><td>白内障術後で特定の経過がある患者さん</td><td>術後の患者さん</td></tr>
+              <tr><td>〇〇市から来た小児</td><td>小児の患者さん</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <h3>指導者コメント例</h3>
+      <div class="quote">観察した場面自体はレポートの材料になります。ただし、患者さんを特定できる情報は書かないようにしましょう。氏名や具体的な日付は使わず、「高齢の患者さん」「術後の患者さん」のように一般化してから内容を整理しましょう。</div>
+      <div class="print-actions"><button onclick="printSection('privacy')">このページを印刷</button></div>
+    </section>
+
+    <section id="endday" class="hidden">
+      <h2>帰宅前整理ナビ</h2>
+      <p>帰宅前の到達目標と、よくあるつまずきを一体化した構造です。学生の状態を先にラベル化するのではなく、3つの到達目標に沿って整理します。</p>
+
+      <div class="card green">
+        <h3>3分版：時間がないときの最短ルート</h3>
+        <p>深掘りしすぎず、次の3項目だけ決めます。</p>
+        <div class="grid three">
+          <div class="field"><label>今日の場面</label><textarea placeholder="例：視力検査で患者さんが答えに迷った場面"></textarea></div>
+          <div class="field"><label>調べること</label><textarea placeholder="例：視力検査で答えを促すときの注意点"></textarea></div>
+          <div class="field"><label>明日見ること</label><textarea placeholder="例：患者さんが迷ったとき、検査者がどう待つか"></textarea></div>
+        </div>
+        <p class="small">3項目がそろえば、その日は終了して構いません。</p>
+      </div>
+
+      <div class="subsection">
+        <h3>通常版：到達目標別ナビ</h3>
+        <div class="card white">
+          <h3>到達目標1：今日のテーマを決める</h3>
+          <p><span class="strong">到達状態：</span>今日の実習から、レポートで扱う場面が1つ決まっている。</p>
+          <div class="grid two">
+            <div>
+              <h4>よくあるつまずき</h4>
+              <ul>
+                <li>何を書けばよいか分からない</li>
+                <li>「視力検査について」などテーマが広い</li>
+                <li>「大切だと思った」で止まっている</li>
+                <li>実技経験をどう書けばよいか分からない</li>
+              </ul>
+            </div>
+            <div>
+              <h4>判断ポイント</h4>
+              <ul>
+                <li>具体的な場面が1つあるか</li>
+                <li>その場面で何が気になったか言えるか</li>
+                <li>知識・実技・観察・声かけ・安全のどれに近いか</li>
+              </ul>
+            </div>
+          </div>
+          <details open>
+            <summary>テーマが決まらないときのミニルート</summary>
+            <ol>
+              <li>今日見たことを3つ挙げる。</li>
+              <li>その中で、少しでも「分からない」「難しそう」「患者さんの反応が気になった」ものを1つ選ぶ。</li>
+              <li>深い考察にせず、観察メモ型テーマにしてよい。</li>
+            </ol>
+            <div class="quote">今日は深い考察でなくても大丈夫です。まず、今日見た場面を1つ選び、その場面で気になったことをテーマにしましょう。</div>
+          </details>
+          <details>
+            <summary>問いかけ例</summary>
+            <ul>
+              <li>今日見たことを3つだけ挙げてみましょう。</li>
+              <li>その中で、自分が実施するとしたら難しそうだったものはどれですか？</li>
+              <li>どの場面で「大切だ」と感じましたか？</li>
+              <li>患者さんの反応や、検査者の声かけで印象に残ったことはありますか？</li>
+            </ul>
+          </details>
+          <details>
+            <summary>コメント例</summary>
+            <div class="quote">声かけに注目できている点はよいです。次は「どの場面で」「どのような声かけが」「患者さんにどう影響したか」を足すと、考察が具体的になります。</div>
+            <div class="quote">まずは大きなテーマを決めようとしなくて大丈夫です。今日見た場面を1つ選び、その場面で何が気になったかから考えてみましょう。</div>
+          </details>
+          <div class="field"><label>今日のテーマ</label><textarea placeholder="例：視力検査で患者さんが答えに迷った場面から、声かけと待ち方の役割を考える"></textarea></div>
+        </div>
+
+        <div class="flow-arrow">↓</div>
+
+        <div class="card white">
+          <h3>到達目標2：今日調べることを決める</h3>
+          <p><span class="strong">到達状態：</span>帰宅後に何を調べればよいかが、1つ具体的に決まっている。</p>
+          <div class="grid two">
+            <div>
+              <h4>よくあるつまずき</h4>
+              <ul>
+                <li>「視力検査について調べる」など広すぎる</li>
+                <li>知識まとめだけになりそう</li>
+                <li>今日の場面と調べる内容がつながらない</li>
+              </ul>
+            </div>
+            <div>
+              <h4>判断ポイント</h4>
+              <ul>
+                <li>今日のテーマを書くために必要な知識か</li>
+                <li>検査目的・手順・注意点のどれに近いか</li>
+                <li>実技や患者対応に結びつくか</li>
+              </ul>
+            </div>
+          </div>
+          <details open>
+            <summary>問いかけ例</summary>
+            <ul>
+              <li>このテーマで書くために、何を確認するとよさそうですか？</li>
+              <li>検査の目的、手順、注意点のどれを調べると書きやすいですか？</li>
+              <li>今日見た場面と関係する知識は何ですか？</li>
+            </ul>
+          </details>
+          <details>
+            <summary>コメント例</summary>
+            <div class="quote">検査の目的は整理できています。次は、今日実際に見た場面と結びつけると、実習レポートらしくなります。説明・声かけ・記録・患者さんの反応のどれかを一つ加えてみましょう。</div>
+          </details>
+          <div class="field"><label>今日調べること</label><textarea placeholder="例：視力検査で患者さんが迷ったときの声かけや、答えを促すときの注意点"></textarea></div>
+        </div>
+
+        <div class="flow-arrow">↓</div>
+
+        <div class="card white">
+          <h3>到達目標3：明日見ることを決める</h3>
+          <p><span class="strong">到達状態：</span>翌日の実習で意識して観察することが1つ決まっている。</p>
+          <div class="grid two">
+            <div>
+              <h4>よくあるつまずき</h4>
+              <ul>
+                <li>レポートが今日だけで終わっている</li>
+                <li>次回課題がない</li>
+                <li>「頑張る」「気をつける」など抽象的</li>
+              </ul>
+            </div>
+            <div>
+              <h4>判断ポイント</h4>
+              <ul>
+                <li>明日、具体的に観察できる内容か</li>
+                <li>患者反応・声かけ・検査手順・記録のどれを見るか</li>
+                <li>自分が実施するときの行動につながるか</li>
+              </ul>
+            </div>
+          </div>
+          <details open>
+            <summary>問いかけ例</summary>
+            <ul>
+              <li>明日同じ場面を見るなら、何に注目しますか？</li>
+              <li>患者さんの反応、声かけ、検査手順のどれを見ますか？</li>
+              <li>自分が実施するとしたら、どこを意識しますか？</li>
+            </ul>
+          </details>
+          <details>
+            <summary>コメント例</summary>
+            <div class="quote">今日の気づきが整理できています。最後に、明日見ることを一つ決めると、今回の振り返りが次の実習につながります。</div>
+          </details>
+          <div class="field"><label>明日見ること</label><textarea placeholder="例：患者さんが迷ったとき、検査者がどのタイミングで声をかけるかを見る"></textarea></div>
+        </div>
+      </div>
+      <div class="print-actions"><button onclick="printSection('endday')">帰宅前整理を印刷</button><button onclick="showSection('prints')">印刷用シートへ</button></div>
+    </section>
+
+    <section id="correction" class="hidden">
+      <h2>提出レポート添削フロー</h2>
+      <p>提出されたレポートは、内容の良し悪しを一気に評価せず、5つの順番で確認します。</p>
+      <div class="grid two">
+        <div class="card warn">
+          <h3>1. 個人情報</h3>
+          <p>氏名・ID・具体日付・特定につながる詳細があれば、まず一般化します。</p>
+          <div class="quote">観察した場面自体は材料になります。患者さんを特定できる情報は書かず、一般化した表現に直してから内容を整理しましょう。</div>
+        </div>
+        <div class="card">
+          <h3>2. 具体的場面</h3>
+          <p>教科書的な説明だけでなく、今日見た場面・実施した場面があるか確認します。</p>
+          <div class="quote">今日の実習で見た具体的な場面を一つ加えると、実習レポートとして伝わりやすくなります。</div>
+        </div>
+        <div class="card">
+          <h3>3. 知識とのつながり</h3>
+          <p>検査目的・手順・注意点が、今日の場面とつながっているか確認します。</p>
+          <div class="quote">調べたことは整理できています。次は、その知識が今日見た場面とどう関係するかを一文足しましょう。</div>
+        </div>
+        <div class="card">
+          <h3>4. 実技・患者対応とのつながり</h3>
+          <p>準備・説明・操作・声かけ・記録・確認・患者反応が含まれるか確認します。</p>
+          <div class="quote">実施した経験を書けている点はよいです。次は、どの部分で迷ったか、次回どこを意識するかを具体的にしましょう。</div>
+        </div>
+        <div class="card green">
+          <h3>5. 次回課題</h3>
+          <p>「次に何を見るか」「次に何を意識するか」があるか確認します。</p>
+          <div class="quote">最後に、次回同じ場面を見るときに何を意識するかを一つ決めると、振り返りが次につながります。</div>
+        </div>
+        <div class="card blue">
+          <h3>添削コメントの型</h3>
+          <p><span class="tag">よい点</span><span class="tag">追加するとよい点</span><span class="tag">次に意識すること</span></p>
+          <p>否定ではなく、次に直す行動を具体的に伝えます。</p>
+        </div>
+      </div>
+      <div class="print-actions"><button onclick="printSection('correction')">添削フローを印刷</button></div>
+    </section>
+
+    <section id="matrix" class="hidden">
+      <h2>支援マトリクス</h2>
+      <p>学生の状態を能力評価として扱わず、必要な支援の入口として使います。指導者側も経験年数ではなく、その場の支援スタイルとして表現します。</p>
+
+      <h3>学生の状態と対応</h3>
+      <table>
+        <thead><tr><th>学生の状態</th><th>目安</th><th>指導者の対応</th></tr></thead>
+        <tbody>
+          <tr><td>A：大枠を自分で整理できている</td><td>3項目がそろっている</td><td>最終確認のみで終了</td></tr>
+          <tr><td>B：気づきはあるが、具体化が必要</td><td>「大切」「勉強になった」で止まる</td><td>場面・理由・次回行動を確認</td></tr>
+          <tr><td>C：テーマを選ぶ支援が必要</td><td>何を書けばよいか分からない</td><td>今日見たことを3つ出し、1場面を選ぶ</td></tr>
+          <tr><td>D：知識と実習場面をつなげる支援が必要</td><td>教科書的な説明が中心</td><td>今日見た場面や実技と接続する</td></tr>
+          <tr><td>E：実技経験を言葉にする支援が必要</td><td>「実施した」「緊張した」で止まる</td><td>準備・説明・操作・記録のどこで迷ったか聞く</td></tr>
+          <tr><td>F：個人情報の見直しが必要</td><td>氏名・ID・具体日付などがある</td><td>一般化した表現に直してから進む</td></tr>
+        </tbody>
+      </table>
+
+      <h3>指導者スタイル別の対応例</h3>
+      <p class="matrix-note">通常は上の表だけで十分です。迷う場合に、以下の詳細を使います。</p>
+      <table>
+        <thead><tr><th>学生の状態</th><th>柔軟に問いを調整できる</th><th>フローに沿って支援する</th><th>問いかけ例を見ながら支援する</th><th>短時間で要点を確認する</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>テーマ・調べること・明日見ることがつながっているか確認します。</td><td>3項目がそろっていれば、短時間で終了して構いません。</td><td>3項目を順に確認します。</td><td>3分版で3項目だけ確認します。</td></tr>
+          <tr><td>B</td><td>気づきが生まれた場面を聞き、理由と次回行動につなげます。</td><td>到達目標1から順に確認します。</td><td>問いかけ例を使い、「どの場面でそう感じたか」から確認します。</td><td>まず場面を1つだけ確認し、今日のテーマにします。</td></tr>
+          <tr><td>C</td><td>今日見た場面を一緒に思い出し、小さなテーマにします。</td><td>テーマ未決定ミニルートを使います。</td><td>例示カードを使い、選びやすい候補を示します。</td><td>深い考察は求めず、観察メモ型テーマにします。</td></tr>
+          <tr><td>D</td><td>知識を、今日見た場面や自分の実技に結びつけます。</td><td>添削フローで具体的場面・実技・次回課題を確認します。</td><td>「知識まとめだけ」の見分け例とコメント例を使います。</td><td>調べることと明日見ることを1つずつ決めます。</td></tr>
+          <tr><td>E</td><td>実技中に迷った場面を聞き、テーマ化します。</td><td>準備・説明・操作・記録・確認のどこで迷ったかを確認します。</td><td>実技質問例を使い、一番迷った場面を選びます。</td><td>一番迷った場面と明日意識することを決めます。</td></tr>
+          <tr><td>F</td><td>個人が特定されない表現に直してから内容を整理します。</td><td>個人情報チェックを先に行います。</td><td>置き換え例を見ながら一般化します。</td><td>内容の深掘りより、個人情報の修正を優先します。</td></tr>
+        </tbody>
+      </table>
+      <div class="print-actions"><button onclick="printSection('matrix')">マトリクスを印刷</button></div>
+    </section>
+
+    <section id="comments" class="hidden">
+      <h2>コメント例・言い換え</h2>
+      <div class="notice">コメントは、学生を評価する文ではなく、次に直す行動が分かる文にします。</div>
+      <h3>基本型</h3>
+      <div class="card green">
+        <p><strong>よい点</strong> → <strong>追加するとよい点</strong> → <strong>次に意識すること</strong></p>
+        <div class="quote">声かけの大切さに気づけています。次は、どの場面でそう感じたのかを一文足すと、考察が具体的になります。明日は、患者さんが迷ったときの検査者の待ち方に注目してみましょう。</div>
+      </div>
+      <h3>避けたい表現と言い換え</h3>
+      <table>
+        <thead><tr><th>避けたい表現</th><th>言い換え</th></tr></thead>
+        <tbody>
+          <tr><td>考察が浅いです。</td><td>場面を一つ足すと、考えたことが伝わりやすくなります。</td></tr>
+          <tr><td>観察できていません。</td><td>今日見た場面の中から、患者さんの反応を一つ思い出してみましょう。</td></tr>
+          <tr><td>内容が足りません。</td><td>検査とのつながりを一文加えると、内容が具体的になります。</td></tr>
+          <tr><td>次回課題がありません。</td><td>明日見ることを一つ決めると、今回の振り返りが次につながります。</td></tr>
+          <tr><td>知識だけです。</td><td>調べたことを、今日見た場面とつなげて書いてみましょう。</td></tr>
+        </tbody>
+      </table>
+      <h3>ケース別コメント</h3>
+      <details open><summary>テーマが決まらない</summary><div class="quote">大きなテーマを決めようとしなくて大丈夫です。今日見たことを3つ挙げ、その中から一番覚えている場面を1つ選びましょう。</div></details>
+      <details><summary>「声かけが大切」で止まる</summary><div class="quote">声かけに注目できている点はよいです。次は「どの場面で」「どのような声かけが」「患者さんにどう影響したか」を足すと、考察が具体的になります。</div></details>
+      <details><summary>知識まとめだけ</summary><div class="quote">検査の目的は整理できています。次は、今日実際に見た場面と結びつけると、実習レポートらしくなります。</div></details>
+      <details><summary>実技の振り返り不足</summary><div class="quote">実施した経験を書けている点はよいです。次は「どの部分で迷ったか」「次回どこを意識するか」を具体的にすると、実技の振り返りになります。</div></details>
+      <details><summary>個人情報あり</summary><div class="quote">観察した場面自体はレポートの材料になります。ただし、患者さんを特定できる情報は書かず、一般化した表現に直してから内容を整理しましょう。</div></details>
+      <div class="print-actions"><button onclick="printSection('comments')">コメント例を印刷</button></div>
+    </section>
+
+    <section id="prints" class="hidden">
+      <h2>印刷用シート</h2>
+      <p>HTML上で入力してから印刷しても、空欄のまま印刷して紙で使っても構いません。</p>
+      <div class="card white">
+        <h3>帰宅前整理シート</h3>
+        <div class="checklist">
+          <label class="check"><input type="checkbox"> 個人情報が含まれていない、または一般化した</label>
+          <label class="check"><input type="checkbox"> 今日のテーマが決まった</label>
+          <label class="check"><input type="checkbox"> 今日調べることが決まった</label>
+          <label class="check"><input type="checkbox"> 明日見ることが決まった</label>
+        </div>
+        <div class="field"><label>今日のテーマ</label><textarea></textarea></div>
+        <div class="field"><label>今日調べること</label><textarea></textarea></div>
+        <div class="field"><label>明日見ること</label><textarea></textarea></div>
+        <div class="field"><label>指導者メモ</label><textarea></textarea></div>
+      </div>
+
+      <div class="card white">
+        <h3>添削チェックシート</h3>
+        <div class="grid two">
+          <label class="check"><input type="checkbox"> 個人情報の見直しが必要</label>
+          <label class="check"><input type="checkbox"> 具体的場面を足す</label>
+          <label class="check"><input type="checkbox"> 知識と実習場面をつなげる</label>
+          <label class="check"><input type="checkbox"> 実技・患者対応の振り返りを足す</label>
+          <label class="check"><input type="checkbox"> 次回課題を足す</label>
+          <label class="check"><input type="checkbox"> 文章構成を整える</label>
+        </div>
+        <div class="field"><label>コメント</label><textarea placeholder="よい点 → 追加するとよい点 → 次に意識すること"></textarea></div>
+      </div>
+      <div class="print-actions"><button onclick="printSection('prints')">印刷用シートを印刷</button></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>運用メモ：このHTMLは指導者用の補助資料です。学生の評価表ではありません。個人情報を含む記録は残さず、必要に応じて紙運用側のルールに従って管理してください。</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('main > section').forEach(function(sec) {
+        sec.classList.toggle('hidden', sec.id !== id);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function printSection(id) {
+      document.body.setAttribute('data-print-section', id);
+      window.print();
+    }
+    window.addEventListener('afterprint', function(){
+      document.body.removeAttribute('data-print-section');
+    });
+  </script>
+</body>
+</html>
